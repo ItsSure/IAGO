@@ -1,5 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
+import { useState } from 'react';
 import {
   View,
   Text,
@@ -7,9 +8,23 @@ import {
   TouchableOpacity,
   StyleSheet,
   Linking,
+  Alert,
 } from 'react-native';
 
 export default function Signup() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [cpassword, setCpassword] = useState('');
+
+  const handleRegister = async () => {
+    Alert.alert(
+      'Datos del registro',
+      `Usuario: ${name}\nCorreo: ${email}\nContraseña: ${password}`,
+    );
+    router.replace('/login');
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.card}>
@@ -33,6 +48,8 @@ export default function Signup() {
                 style={styles.input}
                 placeholder="Ingresa tu nombre completo"
                 placeholderTextColor="#71717A"
+                value={name}
+                onChangeText={setName}
               />
             </View>
           </View>
@@ -50,6 +67,8 @@ export default function Signup() {
                 placeholder="Ingresa tu correo electrónico"
                 placeholderTextColor="#71717A"
                 keyboardType="email-address"
+                value={email}
+                onChangeText={setEmail}
               />
             </View>
           </View>
@@ -66,6 +85,8 @@ export default function Signup() {
                 style={styles.input}
                 placeholder="Crea tu contraseña"
                 placeholderTextColor="#71717A"
+                value={password}
+                onChangeText={setPassword}
                 secureTextEntry
               />
             </View>
@@ -83,13 +104,15 @@ export default function Signup() {
                 style={styles.input}
                 placeholder="Confirma tu contraseña"
                 placeholderTextColor="#71717A"
+                value={cpassword}
+                onChangeText={setCpassword}
                 secureTextEntry
               />
             </View>
           </View>
         </View>
         <View style={styles.cardFooter}>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={handleRegister}>
             <Text style={styles.buttonText}>Registrarse</Text>
           </TouchableOpacity>
           <Text style={styles.footerText}>

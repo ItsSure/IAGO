@@ -1,18 +1,25 @@
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useRouter } from 'expo-router';
+import { router } from 'expo-router';
+import { useState } from 'react';
 import {
   StyleSheet,
   View,
   Text,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 
 export default function Login() {
-  const router = useRouter();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
+    Alert.alert(
+      'Datos del login',
+      `Usuario: ${username}\nContraseña: ${password}`,
+    );
     const userToken = 'fake-token';
     await AsyncStorage.setItem('userToken', userToken);
     router.replace('/(tabs)/diary');
@@ -41,6 +48,8 @@ export default function Login() {
                 style={styles.input}
                 placeholder="Ingresa tu nombre de usuario"
                 placeholderTextColor="#71717A"
+                value={username}
+                onChangeText={setUsername}
               />
             </View>
           </View>
@@ -57,6 +66,8 @@ export default function Login() {
                 style={styles.input}
                 placeholder="Ingresa tu contraseña"
                 placeholderTextColor="#71717A"
+                value={password}
+                onChangeText={setPassword}
                 secureTextEntry
               />
             </View>
